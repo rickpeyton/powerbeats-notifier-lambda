@@ -3,7 +3,7 @@ GEM
   specs:
     addressable (2.6.0)
       public_suffix (>= 2.0.2, < 4.0)
-    apple_store_inventory_checker (0.1.0)
+    apple_store_inventory_checker (0.1.1)
     ast (2.4.0)
     backport (1.1.1)
     coderay (1.1.2)
@@ -95,7 +95,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  apple_store_inventory_checker (~> 0.1.0)
+  apple_store_inventory_checker (~> 0.1.1)
   debase
   dotenv
   pry

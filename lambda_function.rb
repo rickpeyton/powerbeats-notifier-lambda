@@ -1,6 +1,6 @@
 begin
   require "dotenv/load"
-rescue StandardError; end # rubocop:disable Lint/HandleExceptions
+rescue Exception; end # rubocop:disable Lint/HandleExceptions
 require "apple_store_inventory_checker"
 require "json"
 require "logger"
@@ -14,7 +14,7 @@ TWILIO_TO_NUMBER = ENV["TWILIO_TO_NUMBER"]
 def lambda_handler(**) # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   logger = Logger.new(STDOUT)
 
-  response = AppleStoreInventoryChecker.retrieve("MV6Y2LL/A", zip: "37064", max_distance: 160)
+  response = AppleStoreInventoryChecker.retrieve("MV6Y2LL/A", zip: "37064", max_distance: 30)
   logger.info "Inventory Response #{response.inspect}"
 
   in_stock = response.select(&:in_stock?)
@@ -40,5 +40,6 @@ def lambda_handler(**) # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
 
   { statusCode: 200 }
 rescue StandardError => e
+  logger.error e.backtrace
   { statusCode: 500, body: e }
 end
